@@ -1,28 +1,30 @@
 package br.com.camel.service;
 
 import org.apache.camel.ProducerTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import br.com.camel.client.TimeDays;
 import br.com.camel.domain.CamelDomain;
-import br.com.camel.processor.CamelProcessor;
 import br.com.camel.router.CamelContextWrapper;
 import br.com.camel.router.CamelRouter;
 
-//@Service
-public class CamelService {
 
-	private final ProducerTemplate template;
+public class CamelService {
 	
+	Logger logger = LoggerFactory.getLogger(CamelService.class);
+	
+	private final ProducerTemplate template;
+
 	public CamelService(CamelContextWrapper wrapper) {
 		template = wrapper.createProducerTemplate();
 	}
 
-	public void serviceOperation(CamelDomain domain) {
-		System.out.println("inicio");
-		System.out.println(template);
-		//template.request(CamelRouter.GET_ROUTE, new CamelProcessor());
-		template.requestBody(CamelRouter.GET_ROUTE, domain, CamelDomain.class);
-		System.out.println("fim");
-		
+	public TimeDays serviceOperation(CamelDomain camelDomain) {
+		logger.info("service - start");
+		CamelDomain response = template.requestBody(CamelRouter.GET_ROUTE, camelDomain, CamelDomain.class);
+		logger.info("service - end");
+		return response.getTime();
 	}
 
 }

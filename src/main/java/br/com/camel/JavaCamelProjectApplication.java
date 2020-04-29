@@ -3,12 +3,14 @@ package br.com.camel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import br.com.camel.router.CamelContextWrapper;
 import br.com.camel.router.CamelRouter;
 import br.com.camel.service.CamelService;
 
+@EnableFeignClients
 @SpringBootApplication
 public class JavaCamelProjectApplication {
 
